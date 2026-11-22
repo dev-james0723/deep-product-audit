@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "min_tests": 246,
+  "required": [
+    {"id": "macos-python310", "platform": "Darwin", "runner": "native", "python": "3.10.16"},
+    {"id": "macos-python311", "platform": "Darwin", "runner": "native", "python": "3.11.11"},
+    {"id": "macos-python312", "platform": "Darwin", "runner": "native", "python": "3.12.8"},
+    {"id": "macos-python315", "platform": "Darwin", "runner": "native", "python": "3.15.2"},
+    {"id": "linux-python310", "platform": "Linux", "runner": "linux-docker", "python": "3.10.16"},
+    {"id": "linux-python312", "platform": "Linux", "runner": "linux-docker", "python": "3.12.8"}
+  ],
+  "known_unverified": [
+    {"id": "windows-native", "status": "not_tested", "reason": "No native Windows host; Linux container is not Windows"}
+  ]
+}

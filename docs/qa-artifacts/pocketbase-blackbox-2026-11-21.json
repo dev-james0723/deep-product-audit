@@ -1,0 +1,123 @@
+{
+  "target": "PocketBase open-source backend",
+  "target_version": "0.40.6",
+  "target_release_url": "https://github.com/pocketbase/pocketbase/releases/tag/v0.40.6",
+  "binary_archive_sha256": "7f2f7544e9ee5994ab69f84b22a4ab9a3bcfed58c1dad7206d05ebeb753f968b",
+  "environment": "disposable macOS ARM64 loopback, no external accounts",
+  "test_kind": "black-box integration and persistence smoke; NOT an agent discovery or seeded bug trial",
+  "checks": [
+    {
+      "check": "real_backend_configured",
+      "state": "passed",
+      "oracle": "Superuser-created separate auth and rule-protected base collections"
+    },
+    {
+      "check": "real_authentication",
+      "state": "passed",
+      "oracle": "Two real user login tokens with distinct server-issued account IDs"
+    },
+    {
+      "check": "invalid_auth_denied",
+      "state": "passed",
+      "oracle": "Wrong password denied without an auth token",
+      "observed": {
+        "wrong_password_login": 400
+      }
+    },
+    {
+      "check": "owner_write",
+      "state": "passed",
+      "oracle": "Owner A created a real SQLite-backed record via authenticated REST API"
+    },
+    {
+      "check": "tenant_read_isolation",
+      "state": "passed",
+      "oracle": "Independent HTTP oracles: owner reads; anonymous/other-user cannot read/list foreign record",
+      "observed": {
+        "owner_get": 200,
+        "guest_get": 404,
+        "other_user_get": 404,
+        "other_user_list": 200,
+        "other_user_items": 0
+      }
+    },
+    {
+      "check": "tenant_write_isolation",
+      "state": "passed",
+      "oracle": "Cross-account update and forged owner create both denied",
+      "observed": {
+        "other_user_patch": 404,
+        "forged_owner_post": 400
+      }
+    },
+    {
+      "check": "second_tenant_clean_control",
+      "state": "passed",
+      "oracle": "Two tenants each complete their own successful, mutually isolated journey",
+      "observed": {
+        "b_create": 200,
+        "b_read": 200,
+        "a_foreign_read": 404,
+        "b_visible_record_count": 1,
+        "a_visible_record_count": 1
+      }
+    },
+    {
+      "check": "authorized_update",
+      "state": "passed",
+      "oracle": "Owner A update acknowledged by real server"
+    },
+    {
+      "check": "invalid_input_preserves_prior_state",
+      "state": "passed",
+      "oracle": "Rejected empty required field cannot corrupt the prior successful write",
+      "observed": {
+        "invalid_patch": 400,
+        "unchanged_read": 200
+      }
+    },
+    {
+      "check": "durable_restart_and_isolation",
+      "state": "passed",
+      "oracle": "Independent new process readback plus continued cross-account deny",
+      "observed": {
+        "owner_restart_get": 200,
+        "other_user_restart_get": 404
+      }
+    },
+    {
+      "check": "independent_sqlite_oracle",
+      "state": "passed",
+      "oracle": "Read-only SQLite inspection matches API ID, owner and saved title",
+      "observed": {
+        "sqlite_matching_rows": 1
+      }
+    },
+    {
+      "check": "authorized_delete",
+      "state": "passed",
+      "oracle": "Owner record is no longer retrievable after authorized deletion",
+      "observed": {
+        "owner_post_delete_get": 404
+      }
+    },
+    {
+      "check": "other_tenant_unchanged_after_delete",
+      "state": "passed",
+      "oracle": "After deleting A, B's record still exists in API and independent SQLite readback",
+      "observed": {
+        "b_survivor_get": 200,
+        "remaining_sqlite_rows": 1
+      }
+    }
+  ],
+  "passed": 13,
+  "blocked": 0,
+  "untested": 0,
+  "results_scope": [
+    "Local authentication, two principal API authorization, CRUD, sqlite readback and process restart",
+    "No UI control interaction, payment processing, full security audit or upstream issue reproduction"
+  ],
+  "credentials": "generated only for disposable local process, never persisted in report",
+  "local_data_disposition": "temporary database directory removed at scope exit"
+}

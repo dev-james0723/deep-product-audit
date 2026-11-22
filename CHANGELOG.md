@@ -1,3 +1,9 @@
+## Unreleased — local CI acceptance follow-up
+
+- Add local, offline-at-test-time macOS and Linux ARM64 test runners and explicit evidence aggregation.
+- Keep Windows native and model-effectiveness benchmarks explicitly untested pending direct verification.
+- Document isolated Docker image preparation; remove broken hosted Actions workflow from the QA branch.
+
 # Changelog
 
 ## 4.0.0-rc.1 — 2026-11-21

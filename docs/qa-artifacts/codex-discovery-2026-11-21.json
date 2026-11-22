@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "host": "Codex app-server skills/list",
+  "matched_skill": "deep-product-audit",
+  "matched_count": 1,
+  "enabled": true,
+  "installed_version": "4.0.0-rc.1",
+  "path": "[isolated CODEX_HOME]/skills/deep-product-audit/SKILL.md",
+  "model_turn_started": false,
+  "real_existing_host_modified": false,
+  "api_credentials_read": false
+}

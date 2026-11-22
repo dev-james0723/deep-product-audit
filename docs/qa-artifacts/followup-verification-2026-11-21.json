@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "report_date": "2026-11-21",
+  "release_baseline": "4.0.0-rc.1",
+  "release_commit": "31393dad679eed7aa5512b2e8ae4d9f07e85b9cf",
+  "qa_branch": "qa/windows-py310-acceptance",
+  "states": {
+    "verified": {
+      "macos_full_suites": [
+        {
+          "platform": "macos-arm64",
+          "python": "3.10.16",
+          "tests": 233,
+          "failures": 0,
+          "errors": 0,
+          "state": "passed",
+          "private_full_log_sha256": "1c1a11b9807e0eda42ad9f31f241deba6a3df97d433c7198583b89b10d0d2e29"
+        },
+        {
+          "platform": "macos-arm64",
+          "python": "3.11.11",
+          "tests": 233,
+          "failures": 0,
+          "errors": 0,
+          "state": "passed",
+          "private_full_log_sha256": "42c7aa2e1544b7a7e1376c39c3937f6537b5aa8a63f74babad46ebe64e737155"
+        },
+        {
+          "platform": "macos-arm64",
+          "python": "3.12.8",
+          "tests": 233,
+          "failures": 0,
+          "errors": 0,
+          "state": "passed",
+          "private_full_log_sha256": "a6b9d36cb65d2dd6c4a3679f8a4e54a78d4c61d94ce4ec34cc4fa16ae1e6ef0d"
+        },
+        {
+          "platform": "macos-arm64",
+          "python": "3.15.2",
+          "tests": 233,
+          "failures": 0,
+          "errors": 0,
+          "state": "passed",
+          "private_full_log_sha256": "207ff5db39cd1e0e98e3a9240841f840bc4de3193ea632e59c01c40e5286e0bb"
+        }
+      ],
+      "thirdparty_pocketbase_blackbox": {
+        "checks": 13,
+        "passed": 13,
+        "blocked": 0,
+        "untested": 0
+      },
+      "codex_appserver_discovery": {
+        "enabled": true,
+        "matched": 1,
+        "model_turn_started": false
+      },
+      "security_probes": 2
+    },
+    "previous_failure_not_repaired": {
+      "test": "test_report_renders_history_and_never_overwrites",
+      "python": "3.10.16",
+      "tests_executed": 233,
+      "failures": 1,
+      "private_failure_log_sha256": "51fe9a65acd369ba050d775ef860b5c873edaf1261dac0cd5e9933b1e80e968e",
+      "reproductions_after_failure": 0,
+      "independent_fixture_repetitions": 65,
+      "status": "root_cause_not_established"
+    },
+    "blocked": {
+      "native_windows": "GitHub Actions account billing lock before runner startup",
+      "runner_job_count": 6,
+      "run_url": "https://github.com/dev-james0723/deep-product-audit/actions/runs/44971972371"
+    },
+    "not_tested": [
+      "native Windows execution",
+      "Claude live skill discovery and invocation",
+      "held-out blind agent detection performance",
+      "real payment provider",
+      "X without owner authorization"
+    ]
+  },
+  "separation": "These are follow-up QA branch checks. Do not imply the original published v4.0.0-rc.1 tag was modified.",
+  "thirdparty_binary_distributed": false,
+  "source_secrets_transferred": false
+}
