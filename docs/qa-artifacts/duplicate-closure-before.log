@@ -1,0 +1,14 @@
+test_duplicate_true_finding_does_not_inflate_verified_closures (__main__.DuplicateClosureTests.test_duplicate_true_finding_does_not_inflate_verified_closures) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_true_finding_does_not_inflate_verified_closures (__main__.DuplicateClosureTests.test_duplicate_true_finding_does_not_inflate_verified_closures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/test_duplicate_closures.py", line 40, in test_duplicate_true_finding_does_not_inflate_verified_closures
+    self.assertEqual(result["candidate"]["counts"]["verified_closures"], 1,
+AssertionError: 2 != 1 : Two claims about the same fixed case/defect are one verified closure
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

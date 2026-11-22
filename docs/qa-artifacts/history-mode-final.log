@@ -1,0 +1,6 @@
+test_regular_file_head_does_not_hide_historical_symlink (__main__.HistoricalModeTests.test_regular_file_head_does_not_hide_historical_symlink) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.053s
+
+OK

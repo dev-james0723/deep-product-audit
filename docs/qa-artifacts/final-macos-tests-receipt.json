@@ -1,0 +1,7 @@
+{
+  "python": "3.15.2 (main, Oct 25 2026, 16:57:51) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+  "returncode": 0,
+  "seconds": 19.092,
+  "log_tail": "cled_proof_rejected) ... ok\ntest_stale_runtime_rejected (test_release_observer.ReleaseTests.test_stale_runtime_rejected) ... ok\ntest_tampered_proof_rejected (test_release_observer.ReleaseTests.test_tampered_proof_rejected) ... ok\ntest_unrelated_receipt_cannot_prove_telemetry (test_release_observer.ReleaseTests.test_unrelated_receipt_cannot_prove_telemetry) ... ok\ntest_large_child_output_is_rejected_with_bounded_parent_memory (test_router_output_bound.RouterOutputBoundTests.test_large_child_output_is_rejected_with_bounded_parent_memory) ... ok\ntest_stderr_flood_is_also_bounded (test_router_output_bound.RouterOutputBoundTests.test_stderr_flood_is_also_bounded) ... ok\ntest_timeout_is_not_a_success (test_router_output_bound.RouterOutputBoundTests.test_timeout_is_not_a_success) ... ok\ntest_no_tests_is_not_success (test_runner_nonempty.RunnerContractTests.test_no_tests_is_not_success) ... ok\n\n----------------------------------------------------------------------\nRan 231 tests in 18.507s\n\nOK\n"
+}

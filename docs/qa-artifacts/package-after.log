@@ -1,0 +1,11 @@
+test_allowlisted_symlink_is_refused (__main__.IndependentPackageBoundaries.test_allowlisted_symlink_is_refused) ... ok
+test_documented_runtime_cli_keeps_install_verifiable (__main__.IndependentPackageBoundaries.test_documented_runtime_cli_keeps_install_verifiable) ... ok
+test_removed_grader_directory_is_flagged_in_history (__main__.IndependentPackageBoundaries.test_removed_grader_directory_is_flagged_in_history) ... ok
+test_same_blob_at_safe_path_does_not_hide_forbidden_history_name (__main__.IndependentPackageBoundaries.test_same_blob_at_safe_path_does_not_hide_forbidden_history_name) ... ok
+test_uninstall_preserves_foreign_empty_directory (__main__.IndependentPackageBoundaries.test_uninstall_preserves_foreign_empty_directory) ... ok
+test_unlisted_arbitrary_files_never_enter_snapshot (__main__.IndependentPackageBoundaries.test_unlisted_arbitrary_files_never_enter_snapshot) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.192s
+
+OK

@@ -1,0 +1,6 @@
+test_demo_explicitly_closes_every_sqlite_connection (__main__.ResourceLifecycleTests.test_demo_explicitly_closes_every_sqlite_connection) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.266s
+
+OK

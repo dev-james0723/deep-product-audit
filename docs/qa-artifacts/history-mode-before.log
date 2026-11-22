@@ -1,0 +1,17 @@
+test_regular_file_head_does_not_hide_historical_symlink (__main__.HistoricalModeTests.test_regular_file_head_does_not_hide_historical_symlink) ... FAIL
+
+======================================================================
+FAIL: test_regular_file_head_does_not_hide_historical_symlink (__main__.HistoricalModeTests.test_regular_file_head_does_not_hide_historical_symlink)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/package_subreview/test_history_mode_alias.py", line 36, in test_regular_file_head_does_not_hide_historical_symlink
+    self.assertEqual(report["status"], "failed", report)
+AssertionError: 'passed' != 'failed'
+- passed
++ failed
+ : {'schema_version': 1, 'status': 'passed', 'files_scanned': 1, 'history': 'scanned', 'history_objects_scanned': 3, 'findings': [], 'file_sha256': {'leaf': '34a04005bcaf206eec990bd9637d9fdb6725e0a0c0d4aebf003f17f4c956eb5c'}, 'limits': ['Heuristic screening is not proof of secret absence or copyright ownership.', 'Only proposed nonignored files and reachable Git objects are scanned; excluded private repositories are never exported.', 'Public demonstration sources are known examples, not held-out tasks; inspect package allowlist separately.', 'Manual provenance, privacy and licensing review remains required.']}
+
+----------------------------------------------------------------------
+Ran 1 test in 0.050s
+
+FAILED (failures=1)

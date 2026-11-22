@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "known_bug_fixture_selfcheck",
+  "buggy_detected_defects": [
+    "B01",
+    "B02",
+    "B03",
+    "B04",
+    "B05",
+    "B06"
+  ],
+  "buggy_clean_controls_failed": [],
+  "corrected_failed_checks": [],
+  "buggy_case_count": 6,
+  "clean_case_count": 6,
+  "fixture_validation_passed": true,
+  "agent_run_executed": false,
+  "product_accepted": false,
+  "scope": "Local synthetic HTTP/SQLite service, no external product, no actual audit-agent comparison"
+}

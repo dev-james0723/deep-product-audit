@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "kind": "eval_only_skill_trigger_cases",
+  "notice": "Requires measured agent invocation logs. Predicted labels are NOT actual trigger observations.",
+  "cases": [
+    {
+      "id": "P01",
+      "should_trigger": true,
+      "prompt": "Deep audit my macOS application and prove its fixes"
+    },
+    {
+      "id": "P02",
+      "should_trigger": true,
+      "prompt": "For this device-control app detect every reproducible bug across concurrent sessions"
+    },
+    {
+      "id": "P03",
+      "should_trigger": true,
+      "prompt": "Can you verify this production release matches the deployed source"
+    },
+    {
+      "id": "P04",
+      "should_trigger": true,
+      "prompt": "Audit cross-tenant access controls and run regression tests"
+    },
+    {
+      "id": "P05",
+      "should_trigger": true,
+      "prompt": "Find reliability faults and prove recovery after network outages"
+    },
+    {
+      "id": "P06",
+      "should_trigger": true,
+      "prompt": "Review false-closure evidence in this engineering task"
+    },
+    {
+      "id": "P07",
+      "should_trigger": true,
+      "prompt": "Do end to end QA and fix the confirmed issues"
+    },
+    {
+      "id": "P08",
+      "should_trigger": true,
+      "prompt": "Check the app in real browsers and record functional bugs"
+    },
+    {
+      "id": "P09",
+      "should_trigger": true,
+      "prompt": "Create an evidence-backed release readiness audit for this native editor"
+    },
+    {
+      "id": "P10",
+      "should_trigger": true,
+      "prompt": "Investigate repeat order errors and concurrent API replay"
+    },
+    {
+      "id": "N01",
+      "should_trigger": false,
+      "prompt": "What is the definition of an audit"
+    },
+    {
+      "id": "N02",
+      "should_trigger": false,
+      "prompt": "Write me a friendly email about an audit"
+    },
+    {
+      "id": "N03",
+      "should_trigger": false,
+      "prompt": "Translate these paragraphs about software bugs"
+    },
+    {
+      "id": "N04",
+      "should_trigger": false,
+      "prompt": "Make a cute illustration of a robot tester"
+    },
+    {
+      "id": "N05",
+      "should_trigger": false,
+      "prompt": "Give me a one-sentence overview of unit testing"
+    },
+    {
+      "id": "N06",
+      "should_trigger": false,
+      "prompt": "What time is it in Tokyo"
+    },
+    {
+      "id": "N07",
+      "should_trigger": false,
+      "prompt": "Show me my trip itinerary to Japan"
+    },
+    {
+      "id": "N08",
+      "should_trigger": false,
+      "prompt": "Help me find a restaurant reservation"
+    },
+    {
+      "id": "N09",
+      "should_trigger": false,
+      "prompt": "Explain Playwright to a beginner without using my project"
+    },
+    {
+      "id": "N10",
+      "should_trigger": false,
+      "prompt": "Suggest a blue button style for my app with no functional audit"
+    }
+  ]
+}

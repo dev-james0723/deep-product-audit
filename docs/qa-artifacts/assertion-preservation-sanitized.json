@@ -1,0 +1,62 @@
+[
+  {
+    "file": "test_audit_ledger.py",
+    "baseline_assertion_count": 112,
+    "candidate_assertion_count": 112,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_benchmark_fixture.py",
+    "baseline_assertion_count": 14,
+    "candidate_assertion_count": 14,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_coverage_critic.py",
+    "baseline_assertion_count": 16,
+    "candidate_assertion_count": 16,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_evaluate_triggers.py",
+    "baseline_assertion_count": 11,
+    "candidate_assertion_count": 11,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_evaluation.py",
+    "baseline_assertion_count": 65,
+    "candidate_assertion_count": 65,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_impact_router.py",
+    "baseline_assertion_count": 9,
+    "candidate_assertion_count": 9,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_network_fault_lab.py",
+    "baseline_assertion_count": 65,
+    "candidate_assertion_count": 65,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_network_tools.py",
+    "baseline_assertion_count": 18,
+    "candidate_assertion_count": 18,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_probe_capabilities.py",
+    "baseline_assertion_count": 20,
+    "candidate_assertion_count": 20,
+    "all_baseline_assertions_preserved": true
+  },
+  {
+    "file": "test_release_observer.py",
+    "baseline_assertion_count": 15,
+    "candidate_assertion_count": 15,
+    "all_baseline_assertions_preserved": true
+  }
+]

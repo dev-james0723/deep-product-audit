@@ -1,0 +1,90 @@
+{
+  "status": "passed",
+  "records": [
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "-B",
+        "scripts/benchmark_fixture.py",
+        "--self-test",
+        "--out",
+        "WORK/legacy-demo-macos.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "-B",
+        "scripts/behavior_lab.py",
+        "--out",
+        "WORK/behavior-demo-macos.json"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "-B",
+        "scripts/network_fault_lab.py",
+        "--mode",
+        "compare",
+        "--out",
+        "WORK/network-demo-macos.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"out\": \"<RELEASE_WORKSPACE>/network-demo-macos.json\", \"fixture_validation_passed\": true, \"product_accepted\": false}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "tools/install_skill.py",
+        "install",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "<FRESH_ENV>/installed skill/scripts/regression_evidence.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: regression_evidence.py [-h] [--out OUT] comparison\n\nValidate supplied regression records without executing product code or\ncommands.\n\npositional arguments:\n  comparison\n\noptions:\n  -h, --help  show this help message and exit\n  --out OUT\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "tools/install_skill.py",
+        "verify",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.15/bin/python3.15",
+        "tools/install_skill.py",
+        "uninstall",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"uninstalled\": true,\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    }
+  ]
+}

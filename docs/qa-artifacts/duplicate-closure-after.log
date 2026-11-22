@@ -1,0 +1,6 @@
+test_duplicate_true_finding_does_not_inflate_verified_closures (__main__.DuplicateClosureTests.test_duplicate_true_finding_does_not_inflate_verified_closures) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK

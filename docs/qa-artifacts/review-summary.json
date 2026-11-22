@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "review_kind": "independent_known_public_code_review",
+  "status": "no_unresolved_confirmed_blocker_in_reviewed_scope",
+  "agent_performance_evaluation_executed": false,
+  "external_product_tested": false,
+  "independent_core_tests_passed": 75,
+  "independent_package_tests_passed": 27,
+  "distinct_targeted_checks": 102,
+  "original_assertions_preserved": 345,
+  "original_test_files": 10,
+  "core_findings": [
+    {
+      "id": "CORE-01",
+      "severity": "medium",
+      "status": "confirmed_fixed",
+      "path": "scripts/behavior_lab.py",
+      "issue": "SQLite context managers committed transactions without closing connections",
+      "before": "27 of 27 held connections still executed SELECT 1 after teardown",
+      "repair": "Explicit contextlib.closing at every connection site",
+      "test": "test_behavior_resource_lifecycle.py",
+      "test_sha256": "136b8beb015333656c4856581fa6614711d443079650fe563ed0b4200f107e73",
+      "before_log": "sqlite-cleanup-before.log",
+      "after_log": "sqlite-final.log"
+    },
+    {
+      "id": "CORE-02",
+      "severity": "medium",
+      "status": "confirmed_fixed",
+      "path": "scripts/evaluate_audit.py",
+      "issue": "Repeated true findings inflated verified closures for one fixed defect",
+      "before": "One true case produced two verified closures and a positive paired closure delta",
+      "repair": "Deduplicate verified closures per case and count duplicate_verified_closures separately",
+      "test": "test_duplicate_closures.py",
+      "test_sha256": "3f8a4eed3a957cda43795f778a35a6f06d394b4aa61074e8329876e0ae813e79",
+      "before_log": "duplicate-closure-before.log",
+      "after_log": "duplicate-closure-after.log"
+    },
+    {
+      "id": "CORE-03",
+      "severity": "low",
+      "status": "confirmed_fixed",
+      "path": "scripts/behavior_lab.py",
+      "issue": "Check digest did not bind all claimed fixture inputs and expected results",
+      "before": "Changing atomic first payload and expected_final left the check digest unchanged",
+      "repair": "Bind explicit database/stream fixture functions and observation/scheduling helpers",
+      "test": "test_behavior_additional_boundaries.py",
+      "test_sha256": "e36ace35dbb2201294e01ddc008ebc8b555820e231d79a201d32add0c9cc4746",
+      "before_log": "behavior-boundaries-before.log",
+      "after_log": "behavior-boundaries-after.log"
+    },
+    {
+      "id": "CORE-04",
+      "severity": "low",
+      "status": "confirmed_fixed",
+      "path": "scripts/behavior_lab.py",
+      "issue": "Numeric done marker was treated as boolean terminal success",
+      "before": "The fixed consumer accepted {\"done\":1} as completed",
+      "repair": "Require the terminal done value to be exactly the boolean True",
+      "test": "test_behavior_additional_boundaries.py",
+      "test_sha256": "e36ace35dbb2201294e01ddc008ebc8b555820e231d79a201d32add0c9cc4746",
+      "before_log": "behavior-boundaries-before.log",
+      "after_log": "behavior-boundaries-after.log"
+    },
+    {
+      "id": "CORE-05",
+      "severity": "low",
+      "status": "confirmed_fixed",
+      "path": "scripts/behavior_lab.py",
+      "issue": "Missing requested IDs were dropped from the independent batch oracle denominator",
+      "before": "Accurate partial success for requested IDs [1,999] was rejected",
+      "repair": "Preserve every requested ID in expected outcomes and validate unique boolean per-item results",
+      "test": "test_behavior_additional_boundaries.py",
+      "test_sha256": "e36ace35dbb2201294e01ddc008ebc8b555820e231d79a201d32add0c9cc4746",
+      "before_log": "behavior-boundaries-before.log",
+      "after_log": "behavior-boundaries-after.log"
+    },
+    {
+      "id": "CORE-06",
+      "severity": "medium",
+      "status": "confirmed_fixed",
+      "path": "scripts/impact_router.py",
+      "issue": "Output was truncated only after unbounded subprocess capture",
+      "before": "16 MiB child output used 50,372,860 traced parent bytes although only 8192 characters were returned",
+      "repair": "Enforce a shared 64 KiB stdout/stderr capture budget and terminate owned subprocesses on overflow or timeout",
+      "test": "test_router_output_bound.py",
+      "test_sha256": "707bf7274e61bed59abd935742cedf294860bd716b4d9f362d45448fbf5032fd",
+      "before_log": "core-probe.json",
+      "after_log": "test_router_output_bound-final.log"
+    }
+  ],
+  "package_confirmed_findings_resolved": [
+    "PKG-01",
+    "PKG-02",
+    "PKG-03",
+    "PKG-04",
+    "PKG-05"
+  ],
+  "source_sha256": {
+    "scripts/behavior_lab.py": "63f72977fd4d80c1ea5590650336c1e8b56d0549ebf3945a9ba509c5494634fa",
+    "scripts/impact_router.py": "4a84149c4796a41d0a8425664295d703ebf44632103a295a92a67a75bbcff3c9",
+    "scripts/evaluate_audit.py": "a4ae26f1ef3e7d1e783df9f3987647a758f5a81268d4f156e1372a86e0bb2c04",
+    "scripts/regression_evidence.py": "25d2ad5e7cda04fca06945cd3cf28f46dfe76bf609b9397cf51aca29309d862e",
+    "tools/package_skill.py": "c01c00282711ae05e10708fc00adbc31e77854655f264b8ea945dd99251d5799",
+    "tools/install_skill.py": "e45005839a314052c0b7ee24fd2dc0fa9eb22c98f8851f129b2037a98395ce96",
+    "tools/public_scan.py": "fd588a397844478ebfac86ea4b18f89f79e25baff8d4fca1f54265d004765df4",
+    "tools/run_tests.py": "205bbd7d37b27ca45e367ae78be690f28b872babc11097f03cbfc26b52ec6c6f",
+    "references/network-testing.md": "bd8ea7489ca21ac0077591c18c643a3ac38714e6bcd6424abe1b83b84d0028dc",
+    "references/research-checks.md": "e928718273772593bb0d95f6f5b643230638c323ca87ca4f23cfba30a1a945aa",
+    "references/evidence-ledger.md": "fb28d560e15308da81e3ae7ec7988def58818ff658c9e0f74c0d28a22f2fe620",
+    "package-manifest.json": "6237bdb339e4e9072c07cc9d55f7dc2f6c64ffc1f6b58fa2dfda7f31630a5975"
+  },
+  "rejected": [
+    "Claim that the public demo constitutes an agent-performance measurement",
+    "Interpretation of the synthetic credential URL negative test as an actual credential",
+    "Claim that original assertions were removed or weakened at the assertion-expression level"
+  ],
+  "needs_validation": [
+    "Windows execution",
+    "Python 3.10 runtime execution",
+    "Final release commit and archive identities",
+    "Final reachable public history and unauthenticated readback",
+    "Redistribution rights and manual privacy review"
+  ],
+  "limits": [
+    "Offline scorer and regression helper consume supplied judgments and artifacts; hashes do not authenticate the underlying truth.",
+    "POSIX router subprocess-group cleanup was inspected; Windows descendant-process cleanup was not exercised."
+  ]
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "name": "legacy-demo-final.json",
+    "exit_code": 0,
+    "sha256": "8abeff18eab4e2bdcba64f4ca4fc7dc65e39968966f873f67868b52f52b89301",
+    "valid": true,
+    "bug_count": 6,
+    "clean_count": 6,
+    "stderr": ""
+  },
+  {
+    "name": "behavior-demo-final.json",
+    "exit_code": 0,
+    "sha256": "0c803d7194638947fc833f54f0f9a4c07631fca51e3064e7b3eee9d33ff165bc",
+    "valid": true,
+    "bug_count": 5,
+    "clean_count": 5,
+    "stderr": ""
+  },
+  {
+    "name": "network-demo-final.json",
+    "exit_code": 0,
+    "sha256": "2a39582cf8f47d00a6f2a0d8fdda5a1040906599f558bbef0f8b5b8002631141",
+    "valid": true,
+    "bug_count": null,
+    "clean_count": null,
+    "stderr": ""
+  }
+]

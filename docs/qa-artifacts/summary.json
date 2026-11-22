@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "candidate": "4.0.0-rc.1",
+  "recorded_date": "2026-11-21",
+  "baseline": {
+    "version": "3.0.0",
+    "matched_files": 43,
+    "linux_tests": 163,
+    "macos_tests": 163
+  },
+  "candidate_suite": {
+    "linux": {
+      "tests": 231,
+      "failures": 0,
+      "errors": 0,
+      "python": "3.12.14"
+    },
+    "macos": {
+      "tests": 231,
+      "failures": 0,
+      "errors": 0,
+      "python": "3.15.2"
+    }
+  },
+  "independent_review": {
+    "distinct_targeted_checks": 102,
+    "overlaps_full_suite": true,
+    "findings_resolved": 11,
+    "original_assertions_preserved": 345
+  },
+  "runtime": {
+    "version": "4.0.0-rc.1",
+    "files": 31,
+    "archive_sha256": "9fd64f683c671cd3845fbd6f0b42dd8af631e91b09d2e941c72f62b0a7189763"
+  },
+  "quick_validate": {
+    "exit_code": 0,
+    "output": "Skill is valid!"
+  },
+  "upstream_reproduction": false,
+  "matched_agent_evaluation": false,
+  "windows_runtime_tested": false,
+  "python310_runtime_tested": false
+}

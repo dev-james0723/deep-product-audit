@@ -1,0 +1,48 @@
+{
+  "date_window": {
+    "from": "2026-10-23",
+    "to": "2026-11-21",
+    "inclusive_days": 30
+  },
+  "engine": {
+    "name": "last30days",
+    "version": "4.4.0",
+    "commit": "bb2f1ed2b9f6d07b90557c5eebd736b566533fec",
+    "run_status": "completed",
+    "exit_code": 0,
+    "elapsed_seconds_reported": 102.3,
+    "raw_candidate_counts": {
+      "reddit": 17,
+      "youtube": 8,
+      "hackernews": 15,
+      "github": 8,
+      "total": 48
+    },
+    "transcripts_returned": 5,
+    "x": "unavailable_no_auth",
+    "cost_policy": "no_paid_providers_no_browser_cookies_no_keychain_no_account_config_changes",
+    "command_date_flags": [
+      "--days=29",
+      "--as-of=2026-11-21"
+    ],
+    "timezone": "UTC",
+    "date_math_note": "Engine subtracts N days from inclusive end; 29 gives 30 inclusive dates. UTC prevents local-today canonicalization from broadening requested end."
+  },
+  "hashes": {
+    "skill_sha256": "38be7555b34ada3d37ec2f5d60fd98876df42454419d95c469c3d8603942035a",
+    "engine_sha256": "9de4cd55a8e74570b3dd625af2db93d34841c8ab3f0bb960edd51f0a4fe27f17",
+    "original_raw_sha256": "3427f5a7ed3fd2896a968d4be90b3867f4d9fe21bd11fbd8bd524e2477ffe745",
+    "stdout_sha256": "960985df3a02a93a90dd07ca66d4ec43950c6c8cf6519d8ee5b626871cf26c7a",
+    "stderr_sha256": "c7c1bc1cc0f5a6da147171f75b8f26adcff37663baae1c544f6343940d138e81"
+  },
+  "coverage_limits": [
+    "Reddit direct search was HTTP403; engine used a public archive fallback and hydrated threads. Do not call direct search fully healthy.",
+    "One YouTube transcript repeatedly returned429; 5of8 videos have transcripts. No matched recent incident was established from the videos; tutorials/hypotheticals are context.",
+    "The15HN items were mostly keyword-noisy debate, job-market, hardware or unrelated data stories. None establishes a reproduced application bug for this matrix.",
+    "Two GitHub issues were service advertisements. Version-only PRs and general template discussion were not counted as bugs.",
+    "No upstream application was executed by this research lane. Reporter before/after claims remain attributed.",
+    "Search found an Oct20 preprint and Oct21-updated audit article; both excluded from the requested current window.",
+    "Reddit thread, derivative posts and primary Crissy Field report describe the same study; count once, not as independent corroboration."
+  ],
+  "source_record_note": "Raw engine output is retained privately to avoid redistributing third-party content; these hashes identify the observed original outputs."
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "unexecuted_scope_hypotheses",
+  "profiles": [
+    {
+      "id": "multi-tenant-web",
+      "verify_actual_features_first": true,
+      "priority_checks": [
+        "authentication",
+        "authorization",
+        "tenant-isolation",
+        "persistence",
+        "concurrency"
+      ]
+    },
+    {
+      "id": "native-editor",
+      "verify_actual_features_first": true,
+      "priority_checks": [
+        "file-integrity",
+        "permissions",
+        "lifecycle",
+        "accessibility",
+        "resource-bounds"
+      ]
+    },
+    {
+      "id": "integration-service",
+      "verify_actual_features_first": true,
+      "priority_checks": [
+        "partial-success",
+        "idempotency",
+        "network-recovery",
+        "payment-reconciliation"
+      ]
+    },
+    {
+      "id": "device-control",
+      "verify_actual_features_first": true,
+      "priority_checks": [
+        "target-identity",
+        "ambiguous-outcome",
+        "cancellation",
+        "session-isolation"
+      ]
+    }
+  ]
+}

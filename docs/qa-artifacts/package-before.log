@@ -1,0 +1,53 @@
+test_allowlisted_symlink_is_refused (__main__.IndependentPackageBoundaries.test_allowlisted_symlink_is_refused) ... ok
+test_documented_runtime_cli_keeps_install_verifiable (__main__.IndependentPackageBoundaries.test_documented_runtime_cli_keeps_install_verifiable) ... ERROR
+test_removed_grader_directory_is_flagged_in_history (__main__.IndependentPackageBoundaries.test_removed_grader_directory_is_flagged_in_history) ... FAIL
+test_same_blob_at_safe_path_does_not_hide_forbidden_history_name (__main__.IndependentPackageBoundaries.test_same_blob_at_safe_path_does_not_hide_forbidden_history_name) ... FAIL
+test_uninstall_preserves_foreign_empty_directory (__main__.IndependentPackageBoundaries.test_uninstall_preserves_foreign_empty_directory) ... FAIL
+test_unlisted_arbitrary_files_never_enter_snapshot (__main__.IndependentPackageBoundaries.test_unlisted_arbitrary_files_never_enter_snapshot) ... ok
+
+======================================================================
+ERROR: test_documented_runtime_cli_keeps_install_verifiable (__main__.IndependentPackageBoundaries.test_documented_runtime_cli_keeps_install_verifiable)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/package_subreview/test_independent_package_boundaries.py", line 77, in test_documented_runtime_cli_keeps_install_verifiable
+    self.assertTrue(install_skill.verify(destination)["verified"])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<WORKSPACE>/deep-product-audit-public/tools/install_skill.py", line 35, in verify
+    raise ValueError("Unexpected or missing files; preserve the installation for inspection")
+ValueError: Unexpected or missing files; preserve the installation for inspection
+
+======================================================================
+FAIL: test_removed_grader_directory_is_flagged_in_history (__main__.IndependentPackageBoundaries.test_removed_grader_directory_is_flagged_in_history)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/package_subreview/test_independent_package_boundaries.py", line 49, in test_removed_grader_directory_is_flagged_in_history
+    self.assertEqual(report["status"], "failed", report)
+AssertionError: 'passed' != 'failed'
+- passed
++ failed
+ : {'schema_version': 1, 'status': 'passed', 'files_scanned': 1, 'history': 'scanned', 'history_objects_scanned': 4, 'findings': [], 'file_sha256': {'README.md': '32db0dd2ab893649845358caa60ba970ff0d70825f289eda3eee8605cfa203e6'}, 'limits': ['Heuristic screening is not proof of secret absence or copyright ownership.', 'Only proposed nonignored files and reachable Git objects are scanned; excluded private repositories are never exported.', 'Public demonstration sources are known examples, not held-out tasks; inspect package allowlist separately.', 'Manual provenance, privacy and licensing review remains required.']}
+
+======================================================================
+FAIL: test_same_blob_at_safe_path_does_not_hide_forbidden_history_name (__main__.IndependentPackageBoundaries.test_same_blob_at_safe_path_does_not_hide_forbidden_history_name)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/package_subreview/test_independent_package_boundaries.py", line 64, in test_same_blob_at_safe_path_does_not_hide_forbidden_history_name
+    self.assertEqual(report["status"], "failed", report)
+AssertionError: 'passed' != 'failed'
+- passed
++ failed
+ : {'schema_version': 1, 'status': 'passed', 'files_scanned': 1, 'history': 'scanned', 'history_objects_scanned': 3, 'findings': [], 'file_sha256': {'README.md': '7ccf365b227bafd0a082441d9348f43848005cc0450f476cda984738b9a61ca1'}, 'limits': ['Heuristic screening is not proof of secret absence or copyright ownership.', 'Only proposed nonignored files and reachable Git objects are scanned; excluded private repositories are never exported.', 'Public demonstration sources are known examples, not held-out tasks; inspect package allowlist separately.', 'Manual provenance, privacy and licensing review remains required.']}
+
+======================================================================
+FAIL: test_uninstall_preserves_foreign_empty_directory (__main__.IndependentPackageBoundaries.test_uninstall_preserves_foreign_empty_directory)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/package_subreview/test_independent_package_boundaries.py", line 84, in test_uninstall_preserves_foreign_empty_directory
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.190s
+
+FAILED (failures=3, errors=1)

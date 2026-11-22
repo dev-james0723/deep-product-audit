@@ -1,0 +1,13 @@
+interface:
+  display_name: "Deep Product Audit"
+  short_description: "Audit real product defects, coverage, and release evidence"
+  default_prompt: "Use $deep-product-audit to audit this product, prioritize real risk, repair authorized defects, independently challenge coverage, and verify recovery and release evidence."
+  icon_small: "./assets/icon.svg"
+  icon_large: "./assets/icon.svg"
+policy:
+  products:
+  - "chatgpt"
+  - "codex"
+  - "api"
+  - "atlas"
+  allow_implicit_invocation: true

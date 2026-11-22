@@ -1,0 +1,108 @@
+{
+  "status": "passed",
+  "fresh_environment": true,
+  "third_party_distributions": [],
+  "archive_sha256": "9fd64f683c671cd3845fbd6f0b42dd8af631e91b09d2e941c72f62b0a7189763",
+  "records": [
+    {
+      "command": [
+        "venv-python",
+        "-c",
+        "import importlib.metadata,json;print(json.dumps([d.metadata[\"Name\"] for d in importlib.metadata.distributions()]))"
+      ],
+      "exit_code": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "tools/package_skill.py",
+        "--out",
+        "<WORKSPACE>/evidence/deep-product-audit-runtime-4.0.0-rc.1.zip"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"version\": \"4.0.0-rc.1\",\n  \"runtime_files\": 31,\n  \"sha256\": \"9fd64f683c671cd3845fbd6f0b42dd8af631e91b09d2e941c72f62b0a7189763\",\n  \"contains_grading_answers\": false,\n  \"publication_authorized\": false\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "tools/install_skill.py",
+        "install",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "<FRESH_ENV>/installed skill/scripts/regression_evidence.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "stdout": "usage: regression_evidence.py [-h] [--out OUT] comparison\n\nValidate supplied regression records without executing product code or\ncommands.\n\npositional arguments:\n  comparison\n\noptions:\n  -h, --help  show this help message and exit\n  --out OUT\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "<FRESH_ENV>/installed skill/scripts/audit_ledger.py",
+        "init",
+        "--out",
+        "<FRESH_ENV>/bundle",
+        "--target",
+        "example-cli",
+        "--target-kind",
+        "cli",
+        "--profile",
+        "standard",
+        "--environment",
+        "local"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"created\": \"<FRESH_ENV>/bundle/audit.json\", \"audit_executed\": false}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "<FRESH_ENV>/installed skill/scripts/audit_ledger.py",
+        "validate",
+        "<FRESH_ENV>/bundle/audit.json",
+        "--gate",
+        "release"
+      ],
+      "exit_code": 1,
+      "stdout": "{\n  \"schema_version\": 2,\n  \"integrity\": {\n    \"valid\": true,\n    \"errors\": [],\n    \"warnings\": [\n      \"Digests bind files to records, not to truthful execution or independent authorship. Inspect the evidence contents.\"\n    ]\n  },\n  \"gates\": {\n    \"ledger_valid\": true,\n    \"audit_complete\": false,\n    \"recorded_checks_passed\": false,\n    \"release_accepted\": false,\n    \"audit_errors\": [\n      \"No in-scope checks are recorded.\"\n    ],\n    \"strict_errors\": [\n      \"No in-scope checks are recorded.\"\n    ],\n    \"release_errors\": [\n      \"No in-scope checks are recorded.\",\n      \"source provenance has not been observed.\",\n      \"artifact provenance has not been observed.\",\n      \"runtime provenance has not been observed.\",\n      \"Independent release evidence review has not been recorded.\",\n      \"The actual audit executor has not been identified.\"\n    ]\n  },\n  \"acceptance\": {\n    \"outcome\": \"incomplete\",\n    \"strict_gate_passed\": false,\n    \"product_accepted\": false,\n    \"release_eligible\": false,\n    \"coverage\": {\n      \"blocked\": 0,\n      \"failed\": 0,\n      \"not_tested\": 0,\n      \"out_of_scope\": 0,\n      \"passed\": 0,\n      \"unknown\": 0\n    },\n    \"covered\": 0,\n    \"findings\": 0,\n    \"dispositions\": {},\n    \"errors\": [\n      \"No in-scope checks are recorded.\",\n      \"source provenance has not been observed.\",\n      \"artifact provenance has not been observed.\",\n      \"runtime provenance has not been observed.\",\n      \"Independent release evidence review has not been recorded.\",\n      \"The actual audit executor has not been identified.\"\n    ]\n  },\n  \"limits\": \"Release_accepted means recorded-evidence eligibility for the declared scope only. It does not authenticate evidence, prove complete product coverage, authorize deployment, or certify a bug-free system.\",\n  \"mode\": \"release\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "tools/install_skill.py",
+        "verify",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "venv-python",
+        "tools/install_skill.py",
+        "uninstall",
+        "--destination",
+        "<FRESH_ENV>/installed skill"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"uninstalled\": true,\n  \"verified\": true,\n  \"version\": \"4.0.0-rc.1\",\n  \"files\": 31\n}\n",
+      "stderr": ""
+    }
+  ]
+}

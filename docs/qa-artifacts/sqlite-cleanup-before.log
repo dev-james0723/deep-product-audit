@@ -1,0 +1,47 @@
+test_demo_explicitly_closes_every_sqlite_connection (__main__.ResourceLifecycleTests.test_demo_explicitly_closes_every_sqlite_connection) ... FAIL
+
+======================================================================
+FAIL: test_demo_explicitly_closes_every_sqlite_connection (__main__.ResourceLifecycleTests.test_demo_explicitly_closes_every_sqlite_connection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<WORKSPACE>/independent-review/test_behavior_resource_lifecycle.py", line 53, in test_demo_explicitly_closes_every_sqlite_connection
+    self.assertEqual(still_open, [],
+AssertionError: Lists differ: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,[51 chars], 26] != []
+
+First list contains 27 additional elements.
+First extra element 0:
+0
+
++ []
+- [0,
+-  1,
+-  2,
+-  3,
+-  4,
+-  5,
+-  6,
+-  7,
+-  8,
+-  9,
+-  10,
+-  11,
+-  12,
+-  13,
+-  14,
+-  15,
+-  16,
+-  17,
+-  18,
+-  19,
+-  20,
+-  21,
+-  22,
+-  23,
+-  24,
+-  25,
+-  26] : Fixture teardown left 27 of 27 SQLite connections open
+
+----------------------------------------------------------------------
+Ran 1 test in 0.271s
+
+FAILED (failures=1)

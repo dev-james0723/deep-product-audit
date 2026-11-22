@@ -1,0 +1,7 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "returncode": 0,
+  "seconds": 7.288,
+  "log_tail": "ampered_proof_rejected) ... ok\ntest_unrelated_receipt_cannot_prove_telemetry (test_release_observer.ReleaseTests.test_unrelated_receipt_cannot_prove_telemetry) ... ok\ntest_large_child_output_is_rejected_with_bounded_parent_memory (test_router_output_bound.RouterOutputBoundTests.test_large_child_output_is_rejected_with_bounded_parent_memory) ... ok\ntest_stderr_flood_is_also_bounded (test_router_output_bound.RouterOutputBoundTests.test_stderr_flood_is_also_bounded) ... ok\ntest_timeout_is_not_a_success (test_router_output_bound.RouterOutputBoundTests.test_timeout_is_not_a_success) ... ok\ntest_no_tests_is_not_success (test_runner_nonempty.RunnerContractTests.test_no_tests_is_not_success) ... ok\n\n----------------------------------------------------------------------\nRan 231 tests in 7.012s\n\nOK\n"
+}

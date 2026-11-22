@@ -1,0 +1,8 @@
+{
+  "test_sha256": "707bf7274e61bed59abd935742cedf294860bd716b4d9f362d45448fbf5032fd",
+  "before_exit_code": 1,
+  "before_source_sha256": "e028864d6e7b15891d923974af64be38836a1423edf1cc7bfc09b2123880d38a",
+  "after_exit_code": 0,
+  "after_source_sha256": "4a84149c4796a41d0a8425664295d703ebf44632103a295a92a67a75bbcff3c9",
+  "test_unchanged": true
+}

@@ -1,0 +1,8 @@
+test_check_digest_binds_atomic_snapshot_expected_input (__main__.AdditionalBoundaryTests.test_check_digest_binds_atomic_snapshot_expected_input) ... ok
+test_correct_partial_batch_with_missing_id_satisfies_oracle (__main__.AdditionalBoundaryTests.test_correct_partial_batch_with_missing_id_satisfies_oracle) ... ok
+test_numeric_done_marker_is_not_boolean_terminal_success (__main__.AdditionalBoundaryTests.test_numeric_done_marker_is_not_boolean_terminal_success) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.034s
+
+OK

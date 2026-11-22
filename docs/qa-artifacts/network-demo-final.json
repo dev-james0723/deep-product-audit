@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "lab_version": "1.0",
+  "kind": "isolated_fixture_validation",
+  "mode": "compare",
+  "fixture_validation_passed": true,
+  "product_accepted": false,
+  "scope": "Synthetic loopback HTTP fixtures only; no audited product was contacted.",
+  "elapsed_seconds": 0.3469,
+  "deadline_seconds": 15.0,
+  "suites": [
+    {
+      "mode": "buggy",
+      "cases": [
+        {
+          "id": "NET-001",
+          "title": "Offline before submission then recovery",
+          "status": "passed",
+          "checks": {
+            "connection_unavailable_before_send": true,
+            "no_effect_before_recovery": true,
+            "recovered_response": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "ConnectionRefusedError",
+              "transport_phase": "connect",
+              "connection_established": false,
+              "request_write_attempted": false,
+              "operation_outcome": "not_sent"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-001",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_recovery": 0,
+            "effects_after_recovery": 1
+          }
+        },
+        {
+          "id": "NET-004",
+          "title": "Committed operation with a lost reply and retry",
+          "status": "failed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": false
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "RemoteDisconnected",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-004",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 2,
+            "restart_kind": null
+          }
+        },
+        {
+          "id": "NET-005",
+          "title": "Committed operation with a response timeout and retry",
+          "status": "failed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": false
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "TimeoutError",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-005",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 2,
+            "restart_kind": null
+          }
+        },
+        {
+          "id": "NET-009",
+          "title": "Rate limit then one bounded recovery attempt",
+          "status": "passed",
+          "checks": {
+            "rate_limit_observed": true,
+            "rate_limit_has_no_effect": true,
+            "recovered_response": true,
+            "bounded_attempts": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": 429,
+              "body": {
+                "error": "fixture_rate_limit"
+              },
+              "retry_after": "0",
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-009",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "attempts": 2,
+            "effects_before_recovery": 0,
+            "effects_after_recovery": 1
+          }
+        },
+        {
+          "id": "NET-017",
+          "title": "Lost reply then fresh server instance with durable operation records",
+          "status": "failed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": false
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "RemoteDisconnected",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-017",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 2,
+            "restart_kind": "new_server_and_store_instances_same_sqlite_file"
+          }
+        }
+      ],
+      "cleanup": {
+        "temporary_data_removed": true,
+        "owned_servers_closed": true,
+        "owned_server_threads_stopped": true
+      },
+      "infrastructure_errors": [],
+      "all_invariants_passed": false
+    },
+    {
+      "mode": "corrected",
+      "cases": [
+        {
+          "id": "NET-001",
+          "title": "Offline before submission then recovery",
+          "status": "passed",
+          "checks": {
+            "connection_unavailable_before_send": true,
+            "no_effect_before_recovery": true,
+            "recovered_response": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "ConnectionRefusedError",
+              "transport_phase": "connect",
+              "connection_established": false,
+              "request_write_attempted": false,
+              "operation_outcome": "not_sent"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-001",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_recovery": 0,
+            "effects_after_recovery": 1
+          }
+        },
+        {
+          "id": "NET-004",
+          "title": "Committed operation with a lost reply and retry",
+          "status": "passed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "RemoteDisconnected",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-004",
+                "replayed": true
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 1,
+            "restart_kind": null
+          }
+        },
+        {
+          "id": "NET-005",
+          "title": "Committed operation with a response timeout and retry",
+          "status": "passed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "TimeoutError",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-005",
+                "replayed": true
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 1,
+            "restart_kind": null
+          }
+        },
+        {
+          "id": "NET-009",
+          "title": "Rate limit then one bounded recovery attempt",
+          "status": "passed",
+          "checks": {
+            "rate_limit_observed": true,
+            "rate_limit_has_no_effect": true,
+            "recovered_response": true,
+            "bounded_attempts": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": 429,
+              "body": {
+                "error": "fixture_rate_limit"
+              },
+              "retry_after": "0",
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-009",
+                "replayed": false
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "attempts": 2,
+            "effects_before_recovery": 0,
+            "effects_after_recovery": 1
+          }
+        },
+        {
+          "id": "NET-017",
+          "title": "Lost reply then fresh server instance with durable operation records",
+          "status": "passed",
+          "checks": {
+            "fault_observed": true,
+            "effect_committed_before_retry": true,
+            "recovered_response": true,
+            "effect_once": true
+          },
+          "observations": {
+            "first": {
+              "status": null,
+              "body": null,
+              "retry_after": null,
+              "transport_error": "RemoteDisconnected",
+              "transport_phase": "read_response",
+              "connection_established": true,
+              "request_write_attempted": true,
+              "operation_outcome": "unknown"
+            },
+            "recovery": {
+              "status": 200,
+              "body": {
+                "operation_id": "fixture-NET-017",
+                "replayed": true
+              },
+              "retry_after": null,
+              "transport_error": null,
+              "transport_phase": "response_complete",
+              "connection_established": true,
+              "request_write_attempted": true
+            },
+            "effects_before_retry": 1,
+            "effects_after_retry": 1,
+            "restart_kind": "new_server_and_store_instances_same_sqlite_file"
+          }
+        }
+      ],
+      "cleanup": {
+        "temporary_data_removed": true,
+        "owned_servers_closed": true,
+        "owned_server_threads_stopped": true
+      },
+      "infrastructure_errors": [],
+      "all_invariants_passed": true
+    }
+  ],
+  "discrimination": {
+    "expected_seeded_failures": [
+      "NET-004",
+      "NET-005",
+      "NET-017"
+    ],
+    "observed_seeded_failures": [
+      "NET-004",
+      "NET-005",
+      "NET-017"
+    ],
+    "duplicate_effect_oracle_confirmed": true,
+    "unaffected_cases_passed": true
+  },
+  "limitations": [
+    "Fresh server instances simulate restart; this is not an OS/process crash test.",
+    "Rate-limit fixture uses Retry-After=0 and one retry; it does not validate jitter/backoff policies.",
+    "No TLS, DNS, WebSocket, packet loss, real browser, native UI, or production load is exercised.",
+    "Passing the lab validates these fixtures and oracles, not any product or third-party adapter."
+  ]
+}

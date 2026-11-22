@@ -1,0 +1,511 @@
+{
+  "schema_version": 1,
+  "title": "Product network fault profiles",
+  "assessment_status": "not_run",
+  "purpose": "Reusable test plans. A profile definition or a passing synthetic lab is not product coverage.",
+  "fixture_command": "python3 <skill>/scripts/network_fault_lab.py --mode compare --out <new-result.json>",
+  "execution_contract": {
+    "authority": "Use the current task's authorized target, environment, data and effect scope. Skill installation is not product-test authorization.",
+    "readiness": [
+      "discovered",
+      "runnable",
+      "fixture_verified",
+      "executed_on_product"
+    ],
+    "budgets": "Choose explicit request, retry, concurrency, duration and stop limits before execution; do not use unlimited retries.",
+    "isolation": "Keep control/evidence traffic outside the injected fault path. Use disposable owned fixtures and clean up only owned state.",
+    "independent_oracle": "Query actual persisted effects, job state, output files or authoritative server data separately from client UI/HTTP success.",
+    "outcome_states": [
+      "passed",
+      "failed",
+      "blocked",
+      "not_tested",
+      "inconclusive",
+      "out_of_scope"
+    ],
+    "evidence": [
+      "target_and_build",
+      "case_id",
+      "operation_identity",
+      "adapter_and_version",
+      "fault_configuration",
+      "proof_fault_occurred",
+      "independent_state_observations",
+      "retry_count",
+      "recovery_result",
+      "cleanup_result",
+      "timestamps"
+    ],
+    "lab_scope": "The bundled runner is loopback-only, synthetic HTTP/SQLite, five scenario IDs; remaining profiles are adapter recipes."
+  },
+  "profiles": [
+    {
+      "id": "NET-001",
+      "name": "Offline before submission",
+      "layer": "transport",
+      "risk": "critical",
+      "execution_support": "loopback_fixture",
+      "adapters": [
+        "Playwright",
+        "native integration runner"
+      ],
+      "fault": "Refuse connection before a request reaches the service.",
+      "invariants": [
+        "No committed effect before recovery.",
+        "The same intended operation can complete once after recovery."
+      ],
+      "independent_oracles": [
+        "Inspect committed data before reconnect and after one retry.",
+        "Observe the client state; queued is distinct from completed."
+      ],
+      "recovery": "Restore only the test connection; reconcile and retry within a fixed budget.",
+      "limits": "The bundled lab proves no request delivery before recovery and committed-effect counts, not offline browser/native UI.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-002",
+      "name": "Disconnect during upload or streaming request",
+      "layer": "transport",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "Toxiproxy",
+        "mitmproxy",
+        "Playwright"
+      ],
+      "fault": "Cut the selected connection after a known partial request/body checkpoint.",
+      "invariants": [
+        "Partial input cannot appear as a complete saved object.",
+        "Resume/retry follows the specified checksum/offset/idempotency contract."
+      ],
+      "independent_oracles": [
+        "Inspect actual stored object size/checksum and operation record.",
+        "Record bytes/checkpoint and confirm the injected disconnect occurred."
+      ],
+      "recovery": "Remove the disconnect rule; resume or retry and verify exactly the intended complete result.",
+      "limits": "Requires product-specific resumable protocol and storage oracle; the bundled lab does not execute this profile.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-003",
+      "name": "Latency, jitter and limited bandwidth",
+      "layer": "transport",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "Toxiproxy",
+        "isolated tc/netem"
+      ],
+      "fault": "Apply bounded delay/jitter/bandwidth to an explicit test path.",
+      "invariants": [
+        "Progress and timeout state reflect the operation's real status.",
+        "Queues and retries remain within the declared budget."
+      ],
+      "independent_oracles": [
+        "Capture adapter counters and request timeline.",
+        "Inspect pending work and committed effects independently of the spinner."
+      ],
+      "recovery": "Remove the limit; verify backlog drains and normal latency returns.",
+      "limits": "Use separate control traffic; choose values from actual product latency budgets.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-004",
+      "name": "Committed effect then lost response",
+      "layer": "application",
+      "risk": "critical",
+      "execution_support": "loopback_fixture",
+      "adapters": [
+        "Toxiproxy",
+        "mitmproxy",
+        "product fault hook"
+      ],
+      "fault": "Drop the response after a durable side effect commits.",
+      "invariants": [
+        "A timeout/lost reply leaves outcome unknown until reconciled.",
+        "Retrying the same operation identity must not duplicate the effect."
+      ],
+      "independent_oracles": [
+        "Query the committed effects before retry.",
+        "Reconcile through a durable operation record and count effects after retry."
+      ],
+      "recovery": "Restore transport; return the prior result or reconcile before any repeated side effect.",
+      "limits": "The lab uses real local HTTP and SQLite; an API success response alone is not its oracle.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-005",
+      "name": "Response timeout after commit",
+      "layer": "application",
+      "risk": "critical",
+      "execution_support": "loopback_fixture",
+      "adapters": [
+        "Toxiproxy",
+        "mitmproxy",
+        "product fault hook"
+      ],
+      "fault": "Delay a response beyond the client's bounded deadline after durable commit.",
+      "invariants": [
+        "Timeout does not imply rollback.",
+        "A permitted retry or reconciliation produces only the intended effect."
+      ],
+      "independent_oracles": [
+        "Check first operation committed before retry.",
+        "Measure actual timeout and inspect persistent effects after recovery."
+      ],
+      "recovery": "Remove delay; reconcile using the same operation identity.",
+      "limits": "The lab uses a 0.35-second delayed response and 0.10-second caller timeout; production values must follow product budgets.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-006",
+      "name": "DNS resolution failure",
+      "layer": "name-resolution",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "isolated resolver/container runner"
+      ],
+      "fault": "Fail resolution for an owned test hostname.",
+      "invariants": [
+        "The app reports the affected service accurately.",
+        "Recovery does not require deleting unrelated state or credentials."
+      ],
+      "independent_oracles": [
+        "Confirm resolver failure on the actual request path.",
+        "Check retry count, application error state and state persistence."
+      ],
+      "recovery": "Restore the test resolver; verify subsequent operations recover.",
+      "limits": "Never modify the owner's system DNS to simulate this profile; not executed by the bundled lab.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-007",
+      "name": "TLS/certificate handshake failure",
+      "layer": "tls",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "isolated TLS fixture",
+        "native integration runner"
+      ],
+      "fault": "Serve an owned fixture with the specifically invalid/expired/untrusted certificate scenario.",
+      "invariants": [
+        "The app does not silently bypass certificate verification.",
+        "The user sees an accurate failure with no false completion."
+      ],
+      "independent_oracles": [
+        "Record handshake failure without capturing secrets.",
+        "Inspect committed effect count and trust behavior."
+      ],
+      "recovery": "Restore the valid fixture certificate/trust arrangement; rerun the normal flow.",
+      "limits": "Use disposable test trust configuration; certificate pinning may require dedicated fixture design.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-008",
+      "name": "TCP reset or truncated response",
+      "layer": "transport",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "Toxiproxy",
+        "mitmproxy"
+      ],
+      "fault": "Reset the selected connection or truncate a defined response part.",
+      "invariants": [
+        "Incomplete content cannot be marked as valid/complete.",
+        "Retries are bounded and cannot duplicate mutating effects."
+      ],
+      "independent_oracles": [
+        "Verify the actual reset/truncation and parse/checksum result.",
+        "Inspect durable operation state separately from transport failure."
+      ],
+      "recovery": "Remove fault; fetch/reconcile successfully and verify content integrity.",
+      "limits": "TCP stream truncation is not genuine network packet loss.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-009",
+      "name": "Rate limit then recovery",
+      "layer": "http",
+      "risk": "high",
+      "execution_support": "loopback_fixture",
+      "adapters": [
+        "Playwright",
+        "mitmproxy",
+        "product fixture"
+      ],
+      "fault": "Return 429 before applying the operation, with a declared Retry-After.",
+      "invariants": [
+        "A rejected attempt has no side effect.",
+        "Retry count and timing obey the specified bounded policy."
+      ],
+      "independent_oracles": [
+        "Inspect effects before retry.",
+        "Record response status, Retry-After, retry timeline and total attempts."
+      ],
+      "recovery": "Allow a later attempt; verify one effect and no runaway queue.",
+      "limits": "The lab specifically tests Retry-After=0 and one retry; general backoff/jitter needs a product adapter.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-010",
+      "name": "503 and partial dependency outage",
+      "layer": "http",
+      "risk": "critical",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "Toxiproxy",
+        "product fixture",
+        "k6"
+      ],
+      "fault": "Fail one scoped dependency while independent capabilities remain available.",
+      "invariants": [
+        "Dependent operations have accurate partial-failure state.",
+        "Independent product functions continue if the product contract requires it."
+      ],
+      "independent_oracles": [
+        "Observe both dependent and independent flows.",
+        "Inspect queues, durable state, error classification and recovery counters."
+      ],
+      "recovery": "Restore the dependency; drain/reconcile bounded work without duplicating effects.",
+      "limits": "Do not infer whole-product failure from a single mocked dependency response.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-011",
+      "name": "WebSocket disconnect and reconnect",
+      "layer": "websocket",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "Playwright WebSocket routing",
+        "Toxiproxy",
+        "native integration runner"
+      ],
+      "fault": "Interrupt the actual event connection, then permit bounded reconnection.",
+      "invariants": [
+        "Reconnect loops respect budgets.",
+        "The final client state matches authoritative server state."
+      ],
+      "independent_oracles": [
+        "Capture connection transitions and last acknowledged event/state version.",
+        "Compare post-reconnect client state against server data."
+      ],
+      "recovery": "Restore the event connection; verify replay or snapshot reconciliation completes.",
+      "limits": "HTTP fixture success does not validate WebSockets; verify installed adapter support.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-012",
+      "name": "Duplicate, delayed or out-of-order events",
+      "layer": "event-stream",
+      "risk": "critical",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "controlled event fixture",
+        "Playwright WebSocket routing"
+      ],
+      "fault": "Deliver a known event sequence with duplicates, omissions and reordering.",
+      "invariants": [
+        "An event's effect is not applied twice.",
+        "Version/order reconciliation matches the product event contract."
+      ],
+      "independent_oracles": [
+        "Record emitted event identities/versions.",
+        "Compare materialized state to an independent expected model."
+      ],
+      "recovery": "Resume normal events; reconcile missing state and verify stable convergence.",
+      "limits": "Do not assume every event protocol guarantees ordered delivery or replay.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-013",
+      "name": "Queue pressure and retry amplification",
+      "layer": "queue",
+      "risk": "critical",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "k6",
+        "dependency fixture",
+        "queue telemetry"
+      ],
+      "fault": "Apply bounded traffic while an owned downstream path is slow/unavailable.",
+      "invariants": [
+        "Workload/backpressure follow explicit queue limits.",
+        "Retries do not multiply side effects or exceed the allowed budget."
+      ],
+      "independent_oracles": [
+        "Measure input rate, completed rate, dropped/queued work and retry count.",
+        "Inspect unique operation IDs and committed effects."
+      ],
+      "recovery": "Remove the fault; verify drain time, resource recovery and no duplicate application.",
+      "limits": "Check load-generator headroom; closed-loop traffic can conceal arrival-rate pressure.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-014",
+      "name": "Native sleep/wake and network switching",
+      "layer": "native-lifecycle",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "native integration runner",
+        "isolated test device/network"
+      ],
+      "fault": "Suspend/resume a test device or switch its controlled Wi-Fi/VPN path mid-flow.",
+      "invariants": [
+        "Session and operation state remain truthful across lifecycle changes.",
+        "Recovery does not duplicate the interrupted action."
+      ],
+      "independent_oracles": [
+        "Record device lifecycle/network transition and task identity.",
+        "Inspect native UI, persisted state and server operation record."
+      ],
+      "recovery": "Restore the known network/session; reconcile pending work.",
+      "limits": "Use an authorized test device; do not sleep or disconnect the owner's control Mac as a fixture.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-015",
+      "name": "Cancellation with a late response",
+      "layer": "application",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "product fault hook",
+        "Playwright",
+        "native integration runner"
+      ],
+      "fault": "Delay completion, request cancellation, then release a late result.",
+      "invariants": [
+        "Cancellation behavior matches the documented commit boundary.",
+        "Late results cannot silently overwrite newer user state."
+      ],
+      "independent_oracles": [
+        "Inspect background job and durable effect state.",
+        "Compare UI cancellation state and final operation status."
+      ],
+      "recovery": "Release the delay; confirm final state or an explicit committed-before-cancel outcome.",
+      "limits": "Cancellation is not necessarily rollback; define the product rule before testing.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-016",
+      "name": "Expired credentials or role change during a request",
+      "layer": "auth",
+      "risk": "critical",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "API test runner",
+        "test identity provider",
+        "pgTAP"
+      ],
+      "fault": "Expire/revoke a test credential or change an authorized test role at a defined boundary.",
+      "invariants": [
+        "Server-side access decisions remain correct.",
+        "Retries/fallback cannot retain stale privilege or expose another identity's data."
+      ],
+      "independent_oracles": [
+        "Use separate peer identities and direct API/storage checks.",
+        "Inspect actual returned/persisted data and refreshed token/session state."
+      ],
+      "recovery": "Restore only owned test identity configuration; verify the new policy consistently.",
+      "limits": "A hidden UI control or HTTP status alone does not prove data isolation.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-017",
+      "name": "Lost reply and server restart",
+      "layer": "durability",
+      "risk": "critical",
+      "execution_support": "loopback_fixture",
+      "adapters": [
+        "product fault hook",
+        "isolated worker runner"
+      ],
+      "fault": "Commit an operation, lose its reply, and recreate the service before retry.",
+      "invariants": [
+        "Operation identity and deduplication survive server memory loss.",
+        "Retry does not duplicate the durable effect."
+      ],
+      "independent_oracles": [
+        "Read committed effects before and after restart/retry.",
+        "Verify fresh service instances retrieve the durable operation record."
+      ],
+      "recovery": "Start the owned test service and reconcile the same operation identity.",
+      "limits": "The lab recreates HTTP server and Store objects with the same SQLite file; it does not kill an OS process or simulate power loss.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-018",
+      "name": "Long-running connection/resource soak",
+      "layer": "resource",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "k6 CLI",
+        "Instruments",
+        "process/queue telemetry"
+      ],
+      "fault": "Run a bounded representative workload and repeated reconnects over a declared duration.",
+      "invariants": [
+        "Memory, descriptors, connections and temporary data stay within defined budgets.",
+        "Latency/error rate and data correctness remain acceptable over time."
+      ],
+      "independent_oracles": [
+        "Collect time-series resource and service metrics.",
+        "Sample independent operation/effect consistency and real output integrity."
+      ],
+      "recovery": "Stop the owned workload; verify resources return to the specified steady state.",
+      "limits": "A short lab or small MCP run cannot stand in for a genuine soak test.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-019",
+      "name": "Genuine packet loss, duplication and reordering",
+      "layer": "ip-network",
+      "risk": "high",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "isolated Linux tc/netem"
+      ],
+      "fault": "Apply scoped IP packet loss/reordering/duplication on an owned isolated interface.",
+      "invariants": [
+        "The app's actual protocol recovers within its contract.",
+        "No false success, unbounded retries or repeated side effects occur."
+      ],
+      "independent_oracles": [
+        "Record interface/direction, netem settings and packet/counter evidence.",
+        "Inspect endpoint state and operation results independently."
+      ],
+      "recovery": "Remove only the owned rules; prove normal routing and behavior return.",
+      "limits": "TCP stream fault injection is not equivalent; UDP/QUIC needs a real packet-level path.",
+      "assessment_status": "not_run"
+    },
+    {
+      "id": "NET-020",
+      "name": "Fault removal and full recovery",
+      "layer": "recovery",
+      "risk": "critical",
+      "execution_support": "adapter_recipe",
+      "adapters": [
+        "chosen fault adapter",
+        "product telemetry"
+      ],
+      "fault": "Remove the prior fault after recording its effect on the system.",
+      "invariants": [
+        "Normal behavior returns without undocumented manual reset.",
+        "No stale queue, reconnect loop, resource leak or hidden duplicate effect remains."
+      ],
+      "independent_oracles": [
+        "Repeat the baseline journey on the same observed build.",
+        "Compare operation records, queue/resource trends and UI/server state."
+      ],
+      "recovery": "Verify owned adapter/process cleanup and preserve original failure evidence.",
+      "limits": "This must accompany each executed product fault profile; lab fixture cleanup alone is not product recovery.",
+      "assessment_status": "not_run"
+    }
+  ]
+}

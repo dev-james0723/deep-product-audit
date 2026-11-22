@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "demo_version": "1.0.0",
+  "demonstration_kind": "public_known_answer_fixture",
+  "status": "verified",
+  "demo_validated": true,
+  "agent_evaluation_executed": false,
+  "hidden_benchmark": false,
+  "external_product_tested": false,
+  "observed_at_utc": "2026-11-22T00:59:54Z",
+  "runtime": {
+    "python": "3.12.14",
+    "platform": "linux",
+    "implementation": "CPython"
+  },
+  "source_sha256": "63f72977fd4d80c1ea5590650336c1e8b56d0549ebf3945a9ba509c5494634fa",
+  "checks_sha256_before": "e0cf96bce59bc857bdaa37f22d98b98d2dfabab70bf687e74b44010be719d359",
+  "checks_sha256_after": "e0cf96bce59bc857bdaa37f22d98b98d2dfabab70bf687e74b44010be719d359",
+  "unchanged_checks": true,
+  "known_bug_count": 5,
+  "clean_control_count": 5,
+  "per_mode_check_count": 10,
+  "reproduced_bug_ids": [
+    "batch-bug",
+    "privacy-bug",
+    "atomic-file-bug",
+    "stream-bug",
+    "required-jobs-bug"
+  ],
+  "buggy_clean_control_failures": [],
+  "fixed_failures": [],
+  "blocked": [],
+  "not_tested": [],
+  "results": {
+    "buggy": [
+      {
+        "case_id": "batch-bug",
+        "kind": "batch",
+        "classification": "known_bug",
+        "status": "failed",
+        "observation": {
+          "requested_ids": [
+            1,
+            2
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "value": "new"
+            },
+            {
+              "id": 2,
+              "value": "old"
+            }
+          ],
+          "status_code": 200,
+          "response": {
+            "all_succeeded": true,
+            "items": [
+              {
+                "id": 1,
+                "ok": true
+              },
+              {
+                "id": 2,
+                "ok": false,
+                "error": "locked_or_missing"
+              }
+            ]
+          }
+        },
+        "observation_sha256": "bb1e29269e643a8023f16b31003a00513e2bffa7840b5ec9eb941a8aa9588c8e"
+      },
+      {
+        "case_id": "batch-clean",
+        "kind": "batch",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "requested_ids": [
+            1
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "value": "new"
+            }
+          ],
+          "status_code": 200,
+          "response": {
+            "all_succeeded": true,
+            "items": [
+              {
+                "id": 1,
+                "ok": true
+              }
+            ]
+          }
+        },
+        "observation_sha256": "4468ca76c574add95ca0d228ea3ef99a9c37aabf580a3527affb06a9b576ff36"
+      },
+      {
+        "case_id": "privacy-bug",
+        "kind": "privacy",
+        "classification": "known_bug",
+        "status": "failed",
+        "observation": {
+          "principal": "guest",
+          "input": "True",
+          "status_code": 200,
+          "rows": [
+            [
+              "guest",
+              "public"
+            ]
+          ]
+        },
+        "observation_sha256": "0d561b656fb02f86d97b3d7f57e7b60c140e98718449f65f029ed415896a30e0"
+      },
+      {
+        "case_id": "privacy-clean",
+        "kind": "privacy",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "principal": "owner",
+          "input": "true",
+          "status_code": 200,
+          "rows": [
+            [
+              "owner",
+              "private"
+            ]
+          ]
+        },
+        "observation_sha256": "a9811c12343d964c4c779613f6ee5630282eb995d43b37b98183d4a0d0722dfd"
+      },
+      {
+        "case_id": "atomic-file-bug",
+        "kind": "atomic-file",
+        "classification": "known_bug",
+        "status": "failed",
+        "observation": {
+          "middle": {
+            "theme": "another-valid-theme-with-a-longer-value"
+          },
+          "final": null,
+          "valid_json": false,
+          "raw_final": "{\"theme\": \"new\"}er-valid-theme-with-a-longer-value\"}",
+          "expected_final": {
+            "theme": "new"
+          },
+          "remaining_temporaries": []
+        },
+        "observation_sha256": "dc49010af125e6b5da4bb407b56ad9eb60f1ebf7276367e99259e0ba0cddad19"
+      },
+      {
+        "case_id": "atomic-file-clean",
+        "kind": "atomic-file",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "valid_json": true,
+          "final": {
+            "theme": "dark"
+          },
+          "expected_final": {
+            "theme": "dark"
+          },
+          "remaining_temporaries": []
+        },
+        "observation_sha256": "fc693447fe49ab7e0f82a5c0a5de621efc4fb0bd73ee11bce3d897a9fc025d81"
+      },
+      {
+        "case_id": "stream-bug",
+        "kind": "stream",
+        "classification": "known_bug",
+        "status": "failed",
+        "observation": {
+          "status_code": 200,
+          "declared_bytes": 32,
+          "received_bytes": 18,
+          "truncated": true,
+          "body": "{\"delta\":\"hello\"}\n",
+          "application_state": "completed"
+        },
+        "observation_sha256": "8c7affcfa0b716917c836b8bd7a172f630c07ab739dc5b7914dcc463be617fca"
+      },
+      {
+        "case_id": "stream-clean",
+        "kind": "stream",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "status_code": 200,
+          "declared_bytes": 32,
+          "received_bytes": 32,
+          "truncated": false,
+          "body": "{\"delta\":\"hello\"}\n{\"done\":true}\n",
+          "application_state": "completed"
+        },
+        "observation_sha256": "dec5683b920a8dce8183df26badd63383ab5aae26dc3e759ecb7b781cd276d20"
+      },
+      {
+        "case_id": "required-jobs-bug",
+        "kind": "required-jobs",
+        "classification": "known_bug",
+        "status": "failed",
+        "observation": {
+          "contract": {
+            "commit": "fixture-revision-1",
+            "overall": "success",
+            "required": [
+              "unit",
+              "integration"
+            ],
+            "jobs": [
+              {
+                "id": "unit",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              },
+              {
+                "id": "integration",
+                "status": "skipped",
+                "commit": "fixture-revision-1"
+              }
+            ]
+          },
+          "accepted": true,
+          "expected_acceptance": false
+        },
+        "observation_sha256": "aa9286fcd2fc43f3a1132e0a4075e7367503211cb89acb3aa86417ccd457c64d"
+      },
+      {
+        "case_id": "required-jobs-clean",
+        "kind": "required-jobs",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "contract": {
+            "commit": "fixture-revision-1",
+            "overall": "success",
+            "required": [
+              "unit",
+              "integration"
+            ],
+            "jobs": [
+              {
+                "id": "unit",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              },
+              {
+                "id": "integration",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              }
+            ]
+          },
+          "accepted": true,
+          "expected_acceptance": true
+        },
+        "observation_sha256": "b18959d917ff29c57d30bc4b56bb73ed1acf382dbfec5af4801f3812e11d3e57"
+      }
+    ],
+    "fixed": [
+      {
+        "case_id": "batch-bug",
+        "kind": "batch",
+        "classification": "known_bug",
+        "status": "passed",
+        "observation": {
+          "requested_ids": [
+            1,
+            2
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "value": "new"
+            },
+            {
+              "id": 2,
+              "value": "old"
+            }
+          ],
+          "status_code": 200,
+          "response": {
+            "all_succeeded": false,
+            "items": [
+              {
+                "id": 1,
+                "ok": true
+              },
+              {
+                "id": 2,
+                "ok": false,
+                "error": "locked_or_missing"
+              }
+            ]
+          }
+        },
+        "observation_sha256": "7ade53e6e497b023449fc284bac03293e69c371bbc4fbf3a75b6e47056af6288"
+      },
+      {
+        "case_id": "batch-clean",
+        "kind": "batch",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "requested_ids": [
+            1
+          ],
+          "rows": [
+            {
+              "id": 1,
+              "value": "new"
+            }
+          ],
+          "status_code": 200,
+          "response": {
+            "all_succeeded": true,
+            "items": [
+              {
+                "id": 1,
+                "ok": true
+              }
+            ]
+          }
+        },
+        "observation_sha256": "4468ca76c574add95ca0d228ea3ef99a9c37aabf580a3527affb06a9b576ff36"
+      },
+      {
+        "case_id": "privacy-bug",
+        "kind": "privacy",
+        "classification": "known_bug",
+        "status": "passed",
+        "observation": {
+          "principal": "guest",
+          "input": "True",
+          "status_code": 403,
+          "rows": []
+        },
+        "observation_sha256": "4bd12b4b12ecd6a74acd1fd0cef1504d936a154512f398020b91cf1116183ae8"
+      },
+      {
+        "case_id": "privacy-clean",
+        "kind": "privacy",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "principal": "owner",
+          "input": "true",
+          "status_code": 200,
+          "rows": [
+            [
+              "owner",
+              "private"
+            ]
+          ]
+        },
+        "observation_sha256": "a9811c12343d964c4c779613f6ee5630282eb995d43b37b98183d4a0d0722dfd"
+      },
+      {
+        "case_id": "atomic-file-bug",
+        "kind": "atomic-file",
+        "classification": "known_bug",
+        "status": "passed",
+        "observation": {
+          "middle": {
+            "theme": "another-valid-theme-with-a-longer-value"
+          },
+          "final": {
+            "theme": "new"
+          },
+          "valid_json": true,
+          "raw_final": "{\"theme\": \"new\"}",
+          "expected_final": {
+            "theme": "new"
+          },
+          "remaining_temporaries": []
+        },
+        "observation_sha256": "3229e365f011998c4effc24d808b631315c43b6355eba0e149fa545b12c5d987"
+      },
+      {
+        "case_id": "atomic-file-clean",
+        "kind": "atomic-file",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "valid_json": true,
+          "final": {
+            "theme": "dark"
+          },
+          "expected_final": {
+            "theme": "dark"
+          },
+          "remaining_temporaries": []
+        },
+        "observation_sha256": "fc693447fe49ab7e0f82a5c0a5de621efc4fb0bd73ee11bce3d897a9fc025d81"
+      },
+      {
+        "case_id": "stream-bug",
+        "kind": "stream",
+        "classification": "known_bug",
+        "status": "passed",
+        "observation": {
+          "status_code": 200,
+          "declared_bytes": 32,
+          "received_bytes": 18,
+          "truncated": true,
+          "body": "{\"delta\":\"hello\"}\n",
+          "application_state": "incomplete"
+        },
+        "observation_sha256": "df4b64c8353c1163c0b3141f0f8a8e1e6de5286b846d3a7cf44c1b6a5be15bae"
+      },
+      {
+        "case_id": "stream-clean",
+        "kind": "stream",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "status_code": 200,
+          "declared_bytes": 32,
+          "received_bytes": 32,
+          "truncated": false,
+          "body": "{\"delta\":\"hello\"}\n{\"done\":true}\n",
+          "application_state": "completed"
+        },
+        "observation_sha256": "dec5683b920a8dce8183df26badd63383ab5aae26dc3e759ecb7b781cd276d20"
+      },
+      {
+        "case_id": "required-jobs-bug",
+        "kind": "required-jobs",
+        "classification": "known_bug",
+        "status": "passed",
+        "observation": {
+          "contract": {
+            "commit": "fixture-revision-1",
+            "overall": "success",
+            "required": [
+              "unit",
+              "integration"
+            ],
+            "jobs": [
+              {
+                "id": "unit",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              },
+              {
+                "id": "integration",
+                "status": "skipped",
+                "commit": "fixture-revision-1"
+              }
+            ]
+          },
+          "accepted": false,
+          "expected_acceptance": false
+        },
+        "observation_sha256": "fa8dd787b7e6eb0003d6dd6b00c1076b93cfd1f4fbc82f5e2b2fc8ed57b3aebb"
+      },
+      {
+        "case_id": "required-jobs-clean",
+        "kind": "required-jobs",
+        "classification": "clean_control",
+        "status": "passed",
+        "observation": {
+          "contract": {
+            "commit": "fixture-revision-1",
+            "overall": "success",
+            "required": [
+              "unit",
+              "integration"
+            ],
+            "jobs": [
+              {
+                "id": "unit",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              },
+              {
+                "id": "integration",
+                "status": "passed",
+                "commit": "fixture-revision-1"
+              }
+            ]
+          },
+          "accepted": true,
+          "expected_acceptance": true
+        },
+        "observation_sha256": "b18959d917ff29c57d30bc4b56bb73ed1acf382dbfec5af4801f3812e11d3e57"
+      }
+    ]
+  },
+  "limits": [
+    "Synthetic fixtures only; not an independent agent performance evaluation.",
+    "CI case checks offline records; no real CI jobs or deployment executed.",
+    "Atomic replace and fsync demonstration does not prove crash durability on every filesystem.",
+    "No browser, mobile device, external provider, real payment, or customer data exercised."
+  ]
+}

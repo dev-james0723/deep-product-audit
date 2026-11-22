@@ -1,0 +1,57 @@
+[
+  {
+    "public_artifact": "sqlite-cleanup-before.log",
+    "redacted_machine_paths": true,
+    "sha256": "dee5912e5ff1fb2478037d127052a6cd8710675b6d03a7d8de4c47ba3596cbc7"
+  },
+  {
+    "public_artifact": "sqlite-final.log",
+    "redacted_machine_paths": true,
+    "sha256": "2453939ce9d28a9ded1d0d97c2b6b5be458735d4867a60f0d81fe077e0d43203"
+  },
+  {
+    "public_artifact": "duplicate-closure-before.log",
+    "redacted_machine_paths": true,
+    "sha256": "0652d098cf1183dc1589cc9dbc22b6a0a5c0da345d15d264f26e69b49a8e6067"
+  },
+  {
+    "public_artifact": "duplicate-closure-after.log",
+    "redacted_machine_paths": true,
+    "sha256": "4a4783622cb3175b9da4746ae0eb6e4107e983937a366379ef34d005640d51a8"
+  },
+  {
+    "public_artifact": "behavior-boundaries-before.log",
+    "redacted_machine_paths": true,
+    "sha256": "dd4b22e741d9cd082143fe95e6f5eae7c275ff9be88b3c4e03f2d9563d629553"
+  },
+  {
+    "public_artifact": "behavior-boundaries-after.log",
+    "redacted_machine_paths": true,
+    "sha256": "ebaef43230b375bea9aac341ea9f3a2137f7b229585573699cd57f09ce478d1c"
+  },
+  {
+    "public_artifact": "test_router_output_bound-final.log",
+    "redacted_machine_paths": true,
+    "sha256": "1b9f4a39dc38edcc999ead94930d0fe2d62eada75e1f8288862f242a29f5df22"
+  },
+  {
+    "public_artifact": "package-before.log",
+    "redacted_machine_paths": true,
+    "sha256": "edada41cdb7ee880fde76ee96ecd50cb0d897ddfaece2473cf4c46be86c0563d"
+  },
+  {
+    "public_artifact": "package-after.log",
+    "redacted_machine_paths": true,
+    "sha256": "c034eddb6f3901746ed2774bd4df8f87de3828134e7e2d7bccb9b95c97db949f"
+  },
+  {
+    "public_artifact": "history-mode-before.log",
+    "redacted_machine_paths": true,
+    "sha256": "5abac518d276dc0e77437725bf9f2eaeedd5f52a1ea1abf14bd545ab0d2047ce"
+  },
+  {
+    "public_artifact": "history-mode-final.log",
+    "redacted_machine_paths": true,
+    "sha256": "f77099b239a04a29de567c5537f06e3399abd3e962d6ed4bd5516fd5a409bf23"
+  }
+]
