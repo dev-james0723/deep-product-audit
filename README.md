@@ -122,6 +122,10 @@ using the [ledger contract](references/evidence-ledger.md). An incomplete draft
 must fail the audit/release gates. A completed investigation may contain defects;
 it does not follow that a release is accepted.
 
+## Local CI without GitHub Actions
+
+For isolated, repeatable native Python and Linux ARM64 test lanes, see the optional [local CI runner](tools/localci/README.md). It records evidence per lane, fails closed on missing/skipped tests, and never uses GitHub-hosted Actions or claims Windows verification from Linux. This tooling is not part of the 4.0.0-rc.1 runtime package.
+
 ## Develop and verify
 
 From the complete source checkout:
