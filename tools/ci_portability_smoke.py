@@ -68,7 +68,7 @@ def main() -> int:
 
         assert ensure_json_stdout(
             run(TOOLS / "install_skill.py", "install", "--destination", destination),
-            "version", "4.0.0-rc.1"
+            "version", (ROOT / "VERSION").read_text().strip()
         )
         run(destination / "scripts" / "regression_evidence.py", "--help")
         assert ensure_json_stdout(
@@ -93,9 +93,14 @@ def main() -> int:
         run(TOOLS / "public_scan.py", "--history", "--out", output, expect=1)
         scan = ensure(output)
         assert scan["history"] == "scanned" and scan["status"] == "failed"
+        # Independent reviewer has inspected this one specific *synthetic* legacy
+        # fixture. Any modification to its bytes must trigger fresh human review.
+        reviewed_fixture_sha = "a30e54d1b3a0dfc95ff17b7fcc92430c1ebecc2e3285f2192c29ec7f1d90f3da"
+        expected = {"tests/test_audit_ledger.py"}
         assert scan["findings"] and all(
-            f["rule"] == "url-credential" and
-            ("tests/test_audit_ledger.py" in f["path"])
+            f["rule"] == "url-credential"
+            and f["sha256"] == reviewed_fixture_sha
+            and any(name in f["path"] for name in expected)
             for f in scan["findings"]
         ), scan["findings"]
         print(json.dumps({
